@@ -12,6 +12,12 @@ const module2Router = {
   module: 'module2',
   children: [
     {
+      path: 'home',
+      component: () => import('@/views/module2/home'),
+      name: 'module2-home',
+      meta: { title: '模块2-home', icon: 'dashboard', noCache: true }
+    },
+    {
       path: 'view1',
       component: () => import('@/views/module2/view1'),
       name: 'module2-view1',
@@ -23,6 +29,7 @@ const module2Router = {
       name: 'module2-view2',
       meta: { title: '模块2-view2', icon: 'dashboard', noCache: true }
     }
+
   ]
 }
 

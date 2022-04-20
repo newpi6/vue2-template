@@ -2,6 +2,8 @@ module.exports = {
 
   title: 'Vue2 Admin Template',
 
+  showSettings: false,
+
   /**
    * @type {boolean} true | false
    * @description Whether fix the header
@@ -12,5 +14,7 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether show the logo in sidebar
    */
-  sidebarLogo: false
+  sidebarLogo: true
 }
+
+// title, showSettings, fixedHeader, sidebarLogo

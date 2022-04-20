@@ -3,9 +3,11 @@
 
     <div class="module-menu">
       <span class="top-module">首页</span>
-      <span class="top-module">模块1</span>
-      <span class="top-module">模块2</span>
-      <span class="top-module">模块3</span>
+      <span v-for="route in routes" :key="route.path" class="top-module">
+        <span @click="changeModule(route)">{{ route.module }}</span>
+        <!--        <router-link v-if="route.module" class="top-module" :to="{name: route.name + '-home'}">-->
+        <!--          {{ route.module }}</router-link>-->
+      </span>
     </div>
 
     <div class="right-menu">
@@ -52,11 +54,35 @@ export default {
     ]),
     variables() {
       return variables
+    },
+    routes() {
+      return this.$router.options.routes
     }
+  },
+  watch: {
+    // $route(to, from) {
+    //   console.log('router from ' + from.path + ' to ' + to.path)
+    //   console.log(to)
+    // }
+  },
+  created() {
+    console.log('created log avatar')
+    console.log(this.$store.getters.avatar)
+    console.log('created log sidebar')
+    console.log(this.$store.getters.sidebar)
+    console.log('store active module')
+    console.log(this.$store.getters.active_module)
   },
   methods: {
     showNotice() {
       console.log('show notice')
+    },
+    changeModule(route) {
+      console.log('change module')
+      this.$store.state.status.active_module = route.module
+      console.log('active module is')
+      console.log(this.$store.getters.active_module)
+      this.$store.state.settings.sidebarLogo = route.module
     }
   }
 }
@@ -66,6 +92,15 @@ export default {
 
 .module-menu {
   margin-left: 300px;
+  overflow: auto;
+  max-width: 1000px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  max-height: 80px;
+  /*line-height: 80px;*/
+  border: #1f2d3d solid 1px;
 }
 
 .top-search {

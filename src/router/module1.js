@@ -11,6 +11,12 @@ const module1Router = {
   module: 'module1',
   children: [
     {
+      path: 'home',
+      component: () => import('@/views/module1/home'),
+      name: 'module1-home',
+      meta: { title: '模块1-home', icon: 'dashboard', noCache: true }
+    },
+    {
       path: 'view1',
       component: () => import('@/views/module1/view1'),
       name: 'module-view1',

@@ -1,5 +1,4 @@
 #app {
-
   .main-container {
     min-height: 100%;
     transition: margin-left .28s;
@@ -12,7 +11,8 @@
     //background-color: yellow;
   }
 
-  .sidebar-container {
+  //.sidebar-container {
+  .left-siderbar {
     transition: width 0.28s;
     width: $sideBarWidth !important;
     background-color: $menuBg;
