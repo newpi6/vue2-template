@@ -4,11 +4,12 @@
     min-height: 100%;
     transition: margin-left .28s;
     margin-left: $sideBarWidth;
-    top: $topHeaderHeight;
+    //top: $topHeaderHeight;
     position: relative;
     //float: left;
     //top: 0;
-    //border: yellow solid 1px;
+    border: yellow solid 1px;
+    //background-color: yellow;
   }
 
   .sidebar-container {

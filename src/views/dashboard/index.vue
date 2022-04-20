@@ -1,11 +1,12 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text">name: {{ name }}
-      <div v-for="n in 100">
-        {{ n }}
+      <div v-for="n in 100" :key="n">
+        <p>{{ n }}</p>
       </div>
     </div>
-  </div></template>
+  </div>
+</template>
 
 <script>
 import { mapGetters } from 'vuex'
@@ -25,6 +26,7 @@ export default {
   &-container {
     margin: 30px;
   }
+
   &-text {
     font-size: 30px;
     line-height: 46px;

@@ -1,13 +1,60 @@
 #app {
   .top-header {
     height: $topHeaderHeight;
+    //line-height: $topHeaderHeight;
     border: blue solid 1px;
     //margin-left: $sideBarWidth;
     //margin-left: 220px;
     position: fixed;
     z-index: 1002;
     width: 100%;
+    //opacity: 100%;
+
     //top: 100px;
-    background-color: blue;
+    background-color: white;
   }
+
+  .top-module {
+    float: left;
+    line-height: $topHeaderHeight;
+    margin-left: 15px;
+  }
+
+  .top-item {
+    float: right;
+    margin-right: 20px;
+    /*vertical-align: middle;*/
+    line-height: $topHeaderHeight;
+  }
+
+  .right-menu {
+    float: right;
+    height: 100%;
+    line-height: $topHeaderHeight;
+    vertical-align: middle;
+
+    &:focus {
+      outline: none;
+    }
+
+    .right-menu-box {
+      //width: 30px;
+    }
+
+    .avatar-container {
+      margin-right: 15px;
+      //display: inline;
+
+      .user-avatar {
+        cursor: pointer;
+        max-width: 28px;
+        max-height: 28px;
+        border-radius: 50%;
+        vertical-align: middle;
+
+      }
+
+    }
+  }
+
 }
