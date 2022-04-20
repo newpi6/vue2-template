@@ -1,6 +1,6 @@
 <template>
   <div>
-<!--    <div class="top-header" />-->
+    <div class="top-header" />
     <div :class="classObj" class="app-wrapper">
       <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
       <sidebar class="sidebar-container" />
@@ -62,6 +62,8 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
+  background-color: red;
+  //top: calc(#{$topHeaderHeight});
 
   &.mobile.openSidebar {
     position: fixed;

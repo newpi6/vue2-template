@@ -4,6 +4,7 @@
     min-height: 100%;
     transition: margin-left .28s;
     margin-left: $sideBarWidth;
+    top: $topHeaderHeight;
     position: relative;
     //float: left;
     //top: 0;
@@ -17,13 +18,14 @@
     height: 100%;
     position: fixed;
     font-size: 0px;
-    top: 0;
+    top: $topHeaderHeight;
     bottom: 0;
     left: 0;
     z-index: 1001;
     overflow: hidden;
 
     border: red solid 1px;
+    //margin-top: 50px;
 
 
     // reset element-ui css

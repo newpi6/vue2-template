@@ -1,6 +1,13 @@
 #app {
   .top-header {
-    height: 100px;
+    height: $topHeaderHeight;
     border: blue solid 1px;
+    //margin-left: $sideBarWidth;
+    //margin-left: 220px;
+    position: fixed;
+    z-index: 1002;
+    width: 100%;
+    //top: 100px;
+    background-color: blue;
   }
 }
