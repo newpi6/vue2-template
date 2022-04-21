@@ -4,11 +4,9 @@ const module3Router = {
   path: '/module3',
   component: Layout,
   name: 'module3',
-  module: '模块3',
   meta: {
     title: '模块3',
-    icon: 'el-icon-setting',
-    module: 'module3'
+    icon: 'el-icon-setting'
   },
   children: [
     {

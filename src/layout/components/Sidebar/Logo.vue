@@ -24,8 +24,13 @@ export default {
   },
   data() {
     return {
-      title: this.$store.state.settings.showSettings,
+      // title: this.$store.state.settings.title,
       logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+    }
+  },
+  computed: {
+    title() {
+      return this.$store.state.settings.title
     }
   }
 }

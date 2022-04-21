@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue2 Admin Template',
+  title: 'Vue2  Template',
 
   showSettings: false,
 

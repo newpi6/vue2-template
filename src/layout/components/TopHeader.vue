@@ -1,10 +1,17 @@
 <template>
   <div>
-
     <div class="module-menu">
-      <span class="top-module">首页</span>
+      <span class="top-module">
+        <router-link to="/">
+          首页
+        </router-link>
+      </span>
       <span v-for="route in routes" :key="route.path" class="top-module">
-        <span @click="changeModule(route)">{{ route.module }}</span>
+        <span v-if="route.meta">
+          <span v-if="route.meta.module" @click="changeModule(route)">
+            {{ route.meta.module }}
+          </span>
+        </span>
         <!--        <router-link v-if="route.module" class="top-module" :to="{name: route.name + '-home'}">-->
         <!--          {{ route.module }}</router-link>-->
       </span>
@@ -23,7 +30,7 @@
           <el-divider />
           <span>姓名: 张三</span>
           <el-divider />
-          <el-button style="width: 100%">退出登录</el-button>
+          <el-button style="width: 100%" @click.native="logout">退出登录</el-button>
         </div>
         <img
           slot="reference"
@@ -60,29 +67,36 @@ export default {
     }
   },
   watch: {
-    // $route(to, from) {
-    //   console.log('router from ' + from.path + ' to ' + to.path)
-    //   console.log(to)
-    // }
+    $route(to, from) {
+      console.log('router from ' + from.path + ' to ' + to.path)
+      console.log(to)
+      if (this.$route.meta) {
+        this.$store.state.status.active_module = to.meta.module
+      }
+      // this.$store.state.status.active_module = to.module
+      // this.$store.state.settings.title = to.module
+    }
   },
   created() {
-    console.log('created log avatar')
-    console.log(this.$store.getters.avatar)
-    console.log('created log sidebar')
-    console.log(this.$store.getters.sidebar)
-    console.log('store active module')
-    console.log(this.$store.getters.active_module)
+    // console.log('created log avatar')
+    // console.log(this.$store.getters.avatar)
+    // console.log('created log sidebar')
+    // console.log(this.$store.getters.sidebar)
+    // console.log('store active module')
+    // console.log(this.$store.getters.active_module)
   },
   methods: {
     showNotice() {
       console.log('show notice')
     },
     changeModule(route) {
-      console.log('change module')
-      this.$store.state.status.active_module = route.module
-      console.log('active module is')
-      console.log(this.$store.getters.active_module)
-      this.$store.state.settings.sidebarLogo = route.module
+      this.$store.state.status.active_module = route.meta.module
+      this.$store.state.settings.title = route.meta.module
+      this.$router.push({ path: route.path })
+    },
+    async logout() {
+      await this.$store.dispatch('user/logout')
+      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }
 }

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import module1Router from '@/router/module1'
 import module2Router from '@/router/module2'
-import module3Router from '@/router/module3'
+// import module3Router from '@/router/module3'
 
 Vue.use(Router)
 
@@ -70,7 +70,7 @@ export const constantRoutes = [
 
   module1Router,
   module2Router,
-  module3Router,
+  // module3Router,
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
@@ -88,6 +88,12 @@ const router = createRouter()
 export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // reset router
+}
+
+// 捕获路由重复点击两次错误 NavigationDuplicated
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
 }
 
 export default router

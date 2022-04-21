@@ -1,5 +1,7 @@
 import Layout from '@/layout'
 
+const moduleName = 'module1'
+
 const module1Router = {
   path: '/module1',
   component: Layout,
@@ -8,7 +10,6 @@ const module1Router = {
     title: '模块1',
     icon: 'el-icon-setting'
   },
-  module: 'module1',
   children: [
     {
       path: 'home',
@@ -30,5 +31,13 @@ const module1Router = {
     }
   ]
 }
+
+console.log('++++++++++++++++')
+module1Router.meta['module'] = moduleName
+console.log(module1Router.meta)
+module1Router.children.forEach((value, index) => {
+  value.meta['module'] = moduleName
+})
+console.log('++++++++++++++++')
 
 export default module1Router

@@ -11,8 +11,8 @@
     //background-color: yellow;
   }
 
-  //.sidebar-container {
-  .left-siderbar {
+  .sidebar-container {
+    //.left-siderbar {
     transition: width 0.28s;
     width: $sideBarWidth !important;
     background-color: $menuBg;

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div :class="{'has-logo':showLogo}">
+    <top-header class="top-header" />
+    <div :class="{'has-logo':showLogo}" class="left-siderbar">
       <logo v-if="showLogo" :collapse="isCollapse" />
       <el-scrollbar wrap-class="scrollbar-wrapper">
         <el-menu
@@ -13,14 +14,7 @@
           :collapse-transition="false"
           mode="vertical"
         >
-          <span v-for="route in routes" :key="route.path" :item="route" :base-path="route.path">
-            <span v-if="route.meta">
-              <span v-if="route.meta.module === activeModule">
-                <sidebar-item :item="route" :base-path="route.path" />
-              </span>
-            </span>
-          </span>
-          <!--          <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />-->
+          <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
         </el-menu>
       </el-scrollbar>
     </div>
@@ -31,10 +25,11 @@
 import { mapGetters } from 'vuex'
 import Logo from './Logo'
 import SidebarItem from './SidebarItem'
+import TopHeader from '@/layout/components/TopHeader'
 import variables from '@/styles/variables.scss'
 
 export default {
-  components: { SidebarItem, Logo },
+  components: { SidebarItem, Logo, TopHeader },
   computed: {
     ...mapGetters([
       'sidebar'
@@ -65,13 +60,19 @@ export default {
     }
   },
   watch: {
+    // '$store.getters.active_module': {
+    //   handler: function(to, from) {
+    //     console.log('router from ' + from.path + ' to ' + to.path)
+    //     console.log(to)
+    //   }
+    // }
     activeModule(to, from) {
       console.log('module is change, change  old module ' + from + ' to new module' + to)
     }
 
   },
   created() {
-    this.showRouter()
+    // this.showRouter()
   },
   methods: {
     showRouter() {
@@ -82,12 +83,7 @@ export default {
       console.log('-------------------------')
       console.log('this.$route.path')
       console.log(this.$route.path)
-      console.log(this.$route.meta)
-      if (this.$route.meta && this.$route.meta.module) {
-        this.$store.state.status.active_module = this.$route.meta.module
-      }
       console.log('-------------------------')
-      console.log('create method=====================')
     }
   }
 }
