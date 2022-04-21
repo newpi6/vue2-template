@@ -32,12 +32,9 @@ const module1Router = {
   ]
 }
 
-console.log('++++++++++++++++')
 module1Router.meta['module'] = moduleName
-console.log(module1Router.meta)
 module1Router.children.forEach((value, index) => {
   value.meta['module'] = moduleName
 })
-console.log('++++++++++++++++')
 
 export default module1Router

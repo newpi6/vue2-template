@@ -1,6 +1,7 @@
 module.exports = {
+  title: 'VUE2 TEMPLATE', // 顶部导航栏标题
 
-  title: 'Vue2  Template',
+  subTitle: 'Vue2  Template', // 侧边栏标题
 
   showSettings: false,
 

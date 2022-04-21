@@ -84,6 +84,8 @@ export default {
       return false
     },
     resolvePath(routePath) {
+      // console.log('routePath', routePath, 'isExternal(routePath)', isExternal(routePath), 'isExternal(this.basePath)', isExternal(this.basePath))
+      // console.log(path.resolve(this.basePath, routePath))
       if (isExternal(routePath)) {
         return routePath
       }

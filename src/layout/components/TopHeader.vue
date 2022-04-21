@@ -1,5 +1,9 @@
 <template>
   <div>
+    <span class="top-logo">
+      <img src="https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png" class="logo-image">
+      <span class="logo-text">{{ title }}</span>
+    </span>
     <div class="module-menu">
       <span class="top-module">
         <router-link to="/">
@@ -12,8 +16,6 @@
             {{ route.meta.module }}
           </span>
         </span>
-        <!--        <router-link v-if="route.module" class="top-module" :to="{name: route.name + '-home'}">-->
-        <!--          {{ route.module }}</router-link>-->
       </span>
     </div>
 
@@ -44,7 +46,15 @@
       <span class="notice-text">消息</span>
       <span class="notice-number">12</span>
     </div>
-    <el-input prefix-icon="el-icon-search" class="top-item top-search" placeholder="搜索" />
+    <el-autocomplete
+      v-model="destMenu"
+      prefix-icon="el-icon-search"
+      class="top-item top-search"
+      placeholder="搜索菜单"
+      :fetch-suggestions="querySearchAsync"
+      clearable
+      @select="selectHandler"
+    />
   </div>
 </template>
 
@@ -64,26 +74,44 @@ export default {
     },
     routes() {
       return this.$router.options.routes
+    },
+    title() {
+      return this.$store.state.settings.title
+    },
+    routesParse() {
+      const tmp = []
+      this.routes.forEach(item => {
+        if (!item.hidden && item.meta) {
+          tmp.push({ 'value': item.meta.title, 'name': item.name, path: item.path })
+          if (item.children) {
+            item.children.forEach(children => {
+              tmp.push({
+                'value': item.meta.title + '/' + children.meta.title,
+                'name': children.name,
+                path: children.path
+              })
+            })
+          }
+        }
+      })
+      return tmp
     }
   },
   watch: {
     $route(to, from) {
-      console.log('router from ' + from.path + ' to ' + to.path)
-      console.log(to)
+      // console.log('router from ' + from.path + ' to ' + to.path)
+      // console.log(to)
       if (this.$route.meta) {
         this.$store.state.status.active_module = to.meta.module
       }
-      // this.$store.state.status.active_module = to.module
-      // this.$store.state.settings.title = to.module
+    }
+  },
+  data() {
+    return {
+      destMenu: null
     }
   },
   created() {
-    // console.log('created log avatar')
-    // console.log(this.$store.getters.avatar)
-    // console.log('created log sidebar')
-    // console.log(this.$store.getters.sidebar)
-    // console.log('store active module')
-    // console.log(this.$store.getters.active_module)
   },
   methods: {
     showNotice() {
@@ -91,59 +119,32 @@ export default {
     },
     changeModule(route) {
       this.$store.state.status.active_module = route.meta.module
-      this.$store.state.settings.title = route.meta.module
+      this.$store.state.settings.subTitle = route.meta.module
       this.$router.push({ path: route.path })
     },
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    selectHandler(item) {
+      // console.log('select item is', item)
+      this.$router.push({ name: item.name })
+    },
+    querySearchAsync(queryString, cb) {
+      const results = queryString ? this.routesParse.filter(this.memuFilter(queryString)) : this.routesParse
+      return cb(results)
+      // return cb(this.routesParse)
+    },
+    memuFilter(queryString) {
+      return (destMenu) => {
+        // return (destMenu.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0)
+        return (destMenu.value.toLowerCase().search(queryString.toLowerCase()) === 0)
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-
-.module-menu {
-  margin-left: 300px;
-  overflow: auto;
-  max-width: 1000px;
-  display: inline-block;
-  white-space: nowrap;
-  overflow-y: hidden;
-  overflow-x: scroll;
-  max-height: 80px;
-  /*line-height: 80px;*/
-  border: #1f2d3d solid 1px;
-}
-
-.top-search {
-  max-width: 200px;
-  height: 28px;
-}
-
-.top-notice {
-  /*height: 28px;*/
-  /*vertical-align: middle;*/
-  /*position: relative;*/
-  /*margin-right: 15px;*/
-}
-
-.notice-text {
-  display: inline-block;
-  line-height: 30px;
-  vertical-align: middle;
-}
-
-.notice-number {
-  display: inline-block;
-  /*background-color: red;*/
-  position: relative;
-  line-height: 25px;
-  vertical-align: middle;
-  top: -5px;
-  color: red;
-  border-radius: 50%;
-}
 
 </style>

@@ -8,12 +8,13 @@
           :collapse="isCollapse"
           :background-color="variables.menuBg"
           :text-color="variables.menuText"
+          :default-openeds="opendedMenu"
           :unique-opened="false"
           :active-text-color="variables.menuActiveText"
           :collapse-transition="false"
           mode="vertical"
         >
-          <span v-for="route in routes" :key="route.path" :item="route" :base-path="route.path">
+          <span v-for="route in routes" :key="route.path">
             <span v-if="route.meta">
               <span v-if="route.meta.module === activeModule">
                 <sidebar-item :item="route" :base-path="route.path" />
@@ -49,7 +50,15 @@ export default {
       if (meta.activeMenu) {
         return meta.activeMenu
       }
+      // console.log('**', path)
       return path
+    },
+    opendedMenu() {
+      const memu_list = []
+      this.$router.options.routes.forEach(value => {
+        memu_list.push(value.path)
+      })
+      return memu_list
     },
     showLogo() {
       return this.$store.state.settings.sidebarLogo
@@ -65,9 +74,9 @@ export default {
     }
   },
   watch: {
-    activeModule(to, from) {
-      console.log('module is change, change  old module ' + from + ' to new module' + to)
-    }
+    // activeModule(to, from) {
+    //   console.log('module is change, change  old module ' + from + ' to new module' + to)
+    // }
 
   },
   created() {
@@ -75,19 +84,9 @@ export default {
   },
   methods: {
     showRouter() {
-      console.log('this.routes')
-      console.log(this.routes)
-      console.log('this.$router')
-      console.log(this.$router)
-      console.log('-------------------------')
-      console.log('this.$route.path')
-      console.log(this.$route.path)
-      console.log(this.$route.meta)
       if (this.$route.meta && this.$route.meta.module) {
         this.$store.state.status.active_module = this.$route.meta.module
       }
-      console.log('-------------------------')
-      console.log('create method=====================')
     }
   }
 }
